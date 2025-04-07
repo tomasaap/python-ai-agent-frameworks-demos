@@ -12,3 +12,4 @@ openai-agents
 semantic-kernel
 langgraph
 langchain_openai
+pydantic-ai
