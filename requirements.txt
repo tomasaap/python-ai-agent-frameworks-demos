@@ -10,3 +10,5 @@ autogen-agentchat
 autogen-ext[openai]
 openai-agents
 semantic-kernel
+langgraph
+langchain_openai
