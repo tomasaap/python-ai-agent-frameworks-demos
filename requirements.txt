@@ -3,7 +3,10 @@ openai
 python-dotenv
 pydantic
 rich
-beautifulsoup4
-pymupdf4llm
 azure-ai-inference
 dotenv-azd
+aiohttp
+autogen-agentchat
+autogen-ext[openai]
+openai-agents
+semantic-kernel
