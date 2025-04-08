@@ -2,13 +2,12 @@
 
 import os
 
-from langchain_openai import ChatOpenAI
-from langchain_core.tools import tool
-from langgraph.graph import MessagesState, START
-from langgraph.prebuilt import ToolNode
-from langgraph.graph import END, StateGraph
-from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import HumanMessage
+from langchain_core.tools import tool
+from langchain_openai import ChatOpenAI
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph import END, START, MessagesState, StateGraph
+from langgraph.prebuilt import ToolNode
 
 
 @tool
@@ -16,6 +15,7 @@ def play_song_on_spotify(song: str):
     """Play a song on Spotify"""
     # Call the spotify API ...
     return f"Successfully played {song} on Spotify!"
+
 
 @tool
 def play_song_on_apple(song: str):
@@ -28,12 +28,13 @@ tools = [play_song_on_apple, play_song_on_spotify]
 tool_node = ToolNode(tools)
 
 # Set up the model
-model = ChatOpenAI(model="gpt-4o-mini",
-    base_url="https://models.inference.ai.azure.com",
-    api_key=os.environ["GITHUB_TOKEN"])
+model = ChatOpenAI(
+    model="gpt-4o-mini", base_url="https://models.inference.ai.azure.com", api_key=os.environ["GITHUB_TOKEN"]
+)
 model = model.bind_tools(tools, parallel_tool_calls=False)
 
 # Define nodes and conditional edges
+
 
 # Define the function that determines whether to continue or not
 def should_continue(state):

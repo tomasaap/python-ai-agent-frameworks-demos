@@ -1,4 +1,3 @@
-from typing import Any, Dict, List
 import asyncio
 import os
 
@@ -10,9 +9,8 @@ from autogen_agentchat.ui import Console
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 
 client = OpenAIChatCompletionClient(
-    model="gpt-4o",
-    api_key=os.environ["GITHUB_TOKEN"],
-    base_url="https://models.inference.ai.azure.com")
+    model="gpt-4o", api_key=os.environ["GITHUB_TOKEN"], base_url="https://models.inference.ai.azure.com"
+)
 
 
 travel_agent = AssistantAgent(
@@ -25,9 +23,11 @@ travel_agent = AssistantAgent(
     Use TERMINATE when the travel planning is complete.""",
 )
 
+
 def refund_flight(flight_id: str) -> str:
     """Refund a flight"""
     return f"Flight {flight_id} refunded"
+
 
 flights_refunder = AssistantAgent(
     "flights_refunder",
@@ -59,5 +59,4 @@ async def run_team_stream(task: str) -> None:
 
 
 if __name__ == "__main__":
-
     asyncio.run(run_team_stream("I need to refund my flight."))

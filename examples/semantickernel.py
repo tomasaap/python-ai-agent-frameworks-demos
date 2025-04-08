@@ -2,6 +2,7 @@
 
 import asyncio
 import os
+
 from openai import AsyncOpenAI
 from semantic_kernel import Kernel
 from semantic_kernel.agents import AgentGroupChat, ChatCompletionAgent
@@ -29,14 +30,8 @@ def create_kernel() -> Kernel:
     """Creates a Kernel instance with an Azure OpenAI ChatCompletion service."""
     kernel = Kernel()
 
-    chat_client = AsyncOpenAI(
-        api_key=os.environ["GITHUB_TOKEN"],
-        base_url="https://models.inference.ai.azure.com"
-    )
-    chat_completion_service = OpenAIChatCompletion(
-        ai_model_id="gpt-4o",
-        async_client=chat_client
-    )
+    chat_client = AsyncOpenAI(api_key=os.environ["GITHUB_TOKEN"], base_url="https://models.inference.ai.azure.com")
+    chat_completion_service = OpenAIChatCompletion(ai_model_id="gpt-4o", async_client=chat_client)
     kernel.add_service(chat_completion_service)
     return kernel
 
@@ -165,7 +160,7 @@ RESPONSE:
                 if not os.path.exists(file_path):
                     print(f"Unable to access file: {file_path}")
                     continue
-                with open(file_path, "r", encoding="utf-8") as file:
+                with open(file_path, encoding="utf-8") as file:
                     user_input = file.read()
             except Exception:
                 print(f"Unable to access file: {file_path}")

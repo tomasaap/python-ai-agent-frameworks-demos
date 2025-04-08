@@ -1,19 +1,14 @@
 # https://docs.llamaindex.ai/en/stable/examples/agent/react_agent_with_query_engine/
 
 import os
-import requests
 from pathlib import Path
 
-from llama_index.llms.openai import OpenAI
-from llama_index.embeddings.openai import OpenAIEmbedding
-from llama_index.core import Settings
-from llama_index.llms.openai_like import OpenAILike
-from llama_index.core import StorageContext, load_index_from_storage
-from llama_index.core import SimpleDirectoryReader, VectorStoreIndex
+from llama_index.core import Settings, SimpleDirectoryReader, StorageContext, VectorStoreIndex, load_index_from_storage
+from llama_index.core.agent.workflow import AgentStream, ReActAgent
 from llama_index.core.tools import QueryEngineTool
-from llama_index.core.agent.workflow import ReActAgent
 from llama_index.core.workflow import Context
-from llama_index.core.agent.workflow import ToolCallResult, AgentStream
+from llama_index.embeddings.openai import OpenAIEmbedding
+from llama_index.llms.openai_like import OpenAILike
 
 Settings.llm = OpenAILike(
     model=os.getenv("GITHUB_MODEL", "gpt-4o"),
@@ -23,25 +18,19 @@ Settings.llm = OpenAILike(
 )
 
 Settings.embed_model = OpenAIEmbedding(
-  model="text-embedding-3-small",
-  api_base="https://models.inference.ai.azure.com",
-  api_key=os.environ["GITHUB_TOKEN"]
+    model="text-embedding-3-small", api_base="https://models.inference.ai.azure.com", api_key=os.environ["GITHUB_TOKEN"]
 )
 
 # Try to load the index from storage
 try:
-    storage_context = StorageContext.from_defaults(
-        persist_dir="./storage/docs1"
-    )
+    storage_context = StorageContext.from_defaults(persist_dir="./storage/docs1")
     index1 = load_index_from_storage(storage_context)
 
-    storage_context = StorageContext.from_defaults(
-        persist_dir="./storage/docs2"
-    )
+    storage_context = StorageContext.from_defaults(persist_dir="./storage/docs2")
     index2 = load_index_from_storage(storage_context)
 
     index_loaded = True
-except:
+except FileNotFoundError:
     index_loaded = False
 
 if not index_loaded:
@@ -69,17 +58,13 @@ query_engine_tools = [
     QueryEngineTool.from_defaults(
         query_engine=engine2,
         name="engine2",
-        description=(
-            "Provides information about Contoso PerksPlus program, including what can be reimbursed. "
-        ),
+        description=("Provides information about Contoso PerksPlus program, including what can be reimbursed. "),
     ),
 ]
 
+
 async def main():
-    agent = ReActAgent(
-        tools=query_engine_tools,
-        llm=Settings.llm
-    )
+    agent = ReActAgent(tools=query_engine_tools, llm=Settings.llm)
     ctx = Context(agent)
 
     handler = agent.run("can i get my gardening tools reimbursed?", ctx=ctx)
@@ -96,4 +81,5 @@ async def main():
 
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())
