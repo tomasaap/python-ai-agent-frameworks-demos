@@ -119,6 +119,41 @@ If you want to run the scripts locally, you need to set up the `GITHUB_TOKEN` en
     export GITHUB_TOKEN=your_personal_access_token
     ```
 
+## Provisioning Azure AI resources
+
+You can run all examples in this repository using GitHub Models. If you want to run the examples using models from Azure OpenAI instead, you need to provision the Azure AI resources, which will incur costs.
+
+This project includes infrastructure as code (IaC) to provision Azure OpenAI deployments of "gpt-4o" and "text-embedding-3-large". The IaC is defined in the `infra` directory and uses the Azure Developer CLI to provision the resources.
+
+1. Make sure the [Azure Developer CLI (azd)](https://aka.ms/install-azd) is installed.
+
+2. Login to Azure:
+
+    ```shell
+    azd auth login
+    ```
+
+    For GitHub Codespaces users, if the previous command fails, try:
+
+   ```shell
+    azd auth login --use-device-code
+    ```
+
+3. Provision the OpenAI account:
+
+    ```shell
+    azd provision
+    ```
+
+    It will prompt you to provide an `azd` environment name (like "agents-demos"), select a subscription from your Azure account, and select a location. Then it will provision the resources in your account.
+
+4. Once the resources are provisioned, you should now see a local `.env` file with all the environment variables needed to run the scripts.
+5. To delete the resources, run:
+
+    ```shell
+    azd down
+    ```
+
 ## Resources
 
 * [AutoGen Documentation](https://microsoft.github.io/autogen/)
