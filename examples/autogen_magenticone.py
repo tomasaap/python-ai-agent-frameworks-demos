@@ -23,9 +23,9 @@ elif API_HOST == "azure":
         azure.identity.DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
     )
     client = AzureOpenAIChatCompletionClient(
-        model=os.environ["AZURE_OPENAI_MODEL"],
+        model=os.environ["AZURE_OPENAI_CHAT_MODEL"],
         api_version=os.environ["AZURE_OPENAI_VERSION"],
-        azure_deployment=os.environ["AZURE_OPENAI_DEPLOYMENT"],
+        azure_deployment=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT"],
         azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
         azure_ad_token_provider=token_provider,
     )

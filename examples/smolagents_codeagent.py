@@ -17,7 +17,7 @@ elif API_HOST == "azure":
         azure.identity.DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
     )
     model = AzureOpenAIServerModel(
-        model_id=os.environ["AZURE_OPENAI_DEPLOYMENT"],
+        model_id=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT"],
         api_version=os.environ["AZURE_OPENAI_VERSION"],
         azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
         client_kwargs={"azure_ad_token_provider": token_provider}

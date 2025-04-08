@@ -29,7 +29,7 @@ elif API_HOST == "azure":
         azure_ad_token_provider=token_provider,
     )
     model = OpenAIModel(
-        os.environ["AZURE_OPENAI_DEPLOYMENT"],
+        os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT"],
         provider=OpenAIProvider(openai_client=client))
 
 class FlightDetails(BaseModel):

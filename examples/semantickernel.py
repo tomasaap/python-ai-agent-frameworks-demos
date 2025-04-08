@@ -44,7 +44,7 @@ def create_kernel() -> Kernel:
             azure_ad_token_provider=token_provider,
         )
         chat_completion_service = OpenAIChatCompletion(
-            ai_model_id=os.environ["AZURE_OPENAI_MODEL"],
+            ai_model_id=os.environ["AZURE_OPENAI_CHAT_MODEL"],
             async_client=chat_client)
     else:
         chat_client = AsyncOpenAI(

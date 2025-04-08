@@ -39,7 +39,7 @@ if API_HOST == "azure":
     )
     llm = AzureChatOpenAI(
         azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-        azure_deployment=os.environ["AZURE_OPENAI_DEPLOYMENT"],
+        azure_deployment=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT"],
         openai_api_version=os.environ["AZURE_OPENAI_VERSION"],
         azure_ad_token_provider=token_provider,
     )
