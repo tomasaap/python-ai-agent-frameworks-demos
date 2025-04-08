@@ -13,3 +13,5 @@ semantic-kernel
 langgraph
 langchain_openai
 pydantic-ai
+llama-index
+llama-index-llms-openai-like
