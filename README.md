@@ -1,20 +1,20 @@
 <!--
 ---
-name: AI Agents with Python Demos
-description: Collection of Python examples demonstrating various AI agent patterns, frameworks, and integration techniques.
+name: Python AI Agent Frameworks Demos
+description: Collection of Python examples for popular AI agent frameworks using GitHub Models or Azure OpenAI.
 languages:
 - python
 products:
 - azure-openai
 - azure
 page_type: sample
-urlFragment: python-ai-agents-demos
+urlFragment: python-ai-agent-frameworks-demos
 ---
 -->
-# AI Agents with Python Demos
+# Python AI Agent Frameworks Demos
 
-[![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://codespaces.new/pamelafox/python-ai-agents-demos)
-[![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/pamelafox/python-ai-agents-demos)
+[![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://codespaces.new/Azure-Samples/python-ai-agent-frameworks-demos)
+[![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/python-ai-agent-frameworks-demos)
 
 This repository provides examples of many popular Python AI agent frameworks using LLMs from [GitHub Models](https://github.com/marketplace/models). Those models are free to use for anyone with a GitHub account, up to a [daily rate limit](https://docs.github.com/github-models/prototyping-with-ai-models#rate-limits).
 
@@ -39,7 +39,7 @@ You can run this repository virtually by using GitHub Codespaces. The button wil
 
 1. Open the repository (this may take several minutes):
 
-    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/pamelafox/python-ai-agents-demos)
+    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/python-ai-agent-frameworks-demos)
 
 2. Open a terminal window
 3. Continue with the steps to run the examples
@@ -51,7 +51,7 @@ A related option is VS Code Dev Containers, which will open the project in your 
 1. Start Docker Desktop (install it if not already installed)
 2. Open the project:
 
-    [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/pamelafox/python-ai-agents-demos)
+    [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/python-ai-agent-frameworks-demos)
 
 3. In the VS Code window that opens, once the project files show up (this may take several minutes), open a terminal window.
 4. Continue with the steps to run the examples
@@ -66,7 +66,7 @@ A related option is VS Code Dev Containers, which will open the project in your 
 2. Clone the repository:
 
     ```shell
-    git clone https://github.com/pamelafox/python-ai-agents-demos.git
+    git clone https://github.com/Azure-Samples/python-ai-agent-frameworks-demos
     cd python-ai-agents-demos
     ```
 

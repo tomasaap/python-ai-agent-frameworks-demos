@@ -2,9 +2,11 @@
 
 import os
 
+import azure.identity
+from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
 from langchain_core.tools import tool
-from langchain_openai import ChatOpenAI
+from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, MessagesState, StateGraph
 from langgraph.prebuilt import ToolNode
@@ -27,10 +29,25 @@ def play_song_on_apple(song: str):
 tools = [play_song_on_apple, play_song_on_spotify]
 tool_node = ToolNode(tools)
 
-# Set up the model
-model = ChatOpenAI(
-    model="gpt-4o-mini", base_url="https://models.inference.ai.azure.com", api_key=os.environ["GITHUB_TOKEN"]
-)
+# Setup the client to use either Azure OpenAI or GitHub Models
+load_dotenv(override=True)
+API_HOST = os.getenv("API_HOST", "github")
+
+if API_HOST == "azure":
+    token_provider = azure.identity.get_bearer_token_provider(
+        azure.identity.DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+    )
+    llm = AzureChatOpenAI(
+        azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+        azure_deployment=os.environ["AZURE_OPENAI_DEPLOYMENT"],
+        openai_api_version=os.environ["AZURE_OPENAI_VERSION"],
+        azure_ad_token_provider=token_provider,
+    )
+else:
+    model = ChatOpenAI(
+        model="gpt-4o-mini", base_url="https://models.inference.ai.azure.com", api_key=os.environ["GITHUB_TOKEN"]
+    )
+
 model = model.bind_tools(tools, parallel_tool_calls=False)
 
 # Define nodes and conditional edges

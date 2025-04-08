@@ -3,7 +3,9 @@
 import asyncio
 import os
 
-from openai import AsyncOpenAI
+import azure.identity
+from dotenv import load_dotenv
+from openai import AsyncAzureOpenAI, AsyncOpenAI
 from semantic_kernel import Kernel
 from semantic_kernel.agents import AgentGroupChat, ChatCompletionAgent
 from semantic_kernel.agents.strategies import (
@@ -25,13 +27,32 @@ complete a user's task.
 REVIEWER_NAME = "Reviewer"
 WRITER_NAME = "Writer"
 
+load_dotenv(override=True)
+API_HOST = os.getenv("API_HOST", "github")
 
 def create_kernel() -> Kernel:
     """Creates a Kernel instance with an Azure OpenAI ChatCompletion service."""
     kernel = Kernel()
 
-    chat_client = AsyncOpenAI(api_key=os.environ["GITHUB_TOKEN"], base_url="https://models.inference.ai.azure.com")
-    chat_completion_service = OpenAIChatCompletion(ai_model_id="gpt-4o", async_client=chat_client)
+    if API_HOST == "azure":
+        token_provider = azure.identity.get_bearer_token_provider(
+            azure.identity.DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+        )
+        chat_client = AsyncAzureOpenAI(
+            api_version=os.environ["AZURE_OPENAI_VERSION"],
+            azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+            azure_ad_token_provider=token_provider,
+        )
+        chat_completion_service = OpenAIChatCompletion(
+            ai_model_id=os.environ["AZURE_OPENAI_MODEL"],
+            async_client=chat_client)
+    else:
+        chat_client = AsyncOpenAI(
+            api_key=os.environ["GITHUB_TOKEN"],
+            base_url="https://models.inference.ai.azure.com")
+        chat_completion_service = OpenAIChatCompletion(
+            ai_model_id="gpt-4o",
+            async_client=chat_client)
     kernel.add_service(chat_completion_service)
     return kernel
 

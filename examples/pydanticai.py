@@ -1,7 +1,9 @@
 import os
 from typing import Literal
 
-from openai import AsyncOpenAI
+import azure.identity
+from dotenv import load_dotenv
+from openai import AsyncAzureOpenAI, AsyncOpenAI
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, RunContext
 from pydantic_ai.messages import ModelMessage
@@ -10,9 +12,25 @@ from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.usage import Usage, UsageLimits
 from rich.prompt import Prompt
 
-client = AsyncOpenAI(api_key=os.environ["GITHUB_TOKEN"], base_url="https://models.inference.ai.azure.com")
-model = OpenAIModel("gpt-4o", provider=OpenAIProvider(openai_client=client))
+# Setup the OpenAI client to use either Azure OpenAI or GitHub Models
+load_dotenv(override=True)
+API_HOST = os.getenv("API_HOST", "github")
 
+if API_HOST == "github":
+    client = AsyncOpenAI(api_key=os.environ["GITHUB_TOKEN"], base_url="https://models.inference.ai.azure.com")
+    model = OpenAIModel("gpt-4o", provider=OpenAIProvider(openai_client=client))
+elif API_HOST == "azure":
+    token_provider = azure.identity.get_bearer_token_provider(
+        azure.identity.DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+    )
+    client = AsyncAzureOpenAI(
+        api_version=os.environ["AZURE_OPENAI_VERSION"],
+        azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+        azure_ad_token_provider=token_provider,
+    )
+    model = OpenAIModel(
+        os.environ["AZURE_OPENAI_DEPLOYMENT"],
+        provider=OpenAIProvider(openai_client=client))
 
 class FlightDetails(BaseModel):
     flight_number: str
