@@ -9,12 +9,27 @@ param environmentName string
 @description('Location for the OpenAI resource')
 // https://learn.microsoft.com/azure/ai-services/openai/concepts/models?tabs=python-secure%2Cglobal-standard%2Cstandard-chat-completions#models-by-deployment-type
 @allowed([
+  'australiaeast'
+  'brazilsouth'
+  'canadaeast'
   'eastus'
   'eastus2'
+  'francecentral'
+  'germanywestcentral'
+  'japaneast'
+  'koreacentral'
   'northcentralus'
+  'norwayeast'
+  'polandcentral'
+  'southafricanorth'
   'southcentralus'
+  'southindia'
   'spaincentral'
   'swedencentral'
+  'switzerlandnorth'
+  'uaenorth'
+  'uksouth'
+  'westeurope'
   'westus'
   'westus3'
 ])
@@ -105,5 +120,6 @@ output AZURE_RESOURCE_GROUP string = resourceGroup.name
 
 // Specific to Azure OpenAI
 output AZURE_OPENAI_SERVICE string = openAi.outputs.name
-output AZURE_OPENAI_GPT_MODEL string = gptModelName
-output AZURE_OPENAI_GPT_DEPLOYMENT string = gptDeploymentName
+output AZURE_OPENAI_MODEL string = gptModelName
+output AZURE_OPENAI_DEPLOYMENT string = gptDeploymentName
+output AZURE_OPENAI_ENDPOINT string = openAi.outputs.endpoint

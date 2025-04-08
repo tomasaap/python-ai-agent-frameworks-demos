@@ -1,13 +1,31 @@
 import asyncio
 import os
 
+import azure.identity
+import openai
 from agents import Agent, OpenAIChatCompletionsModel, Runner, function_tool, set_tracing_disabled
 from dotenv import load_dotenv
-from openai import AsyncOpenAI
 
-load_dotenv(override=True)
-client = AsyncOpenAI(base_url="https://models.inference.ai.azure.com", api_key=os.environ["GITHUB_TOKEN"])
+# Disable tracing since we're not using OpenAI.com models
 set_tracing_disabled(disabled=True)
+
+# Setup the OpenAI client to use either Azure OpenAI or GitHub Models
+load_dotenv(override=True)
+API_HOST = os.getenv("API_HOST", "github")
+
+if API_HOST == "github":
+    client = openai.AsyncOpenAI(base_url="https://models.inference.ai.azure.com", api_key=os.environ["GITHUB_TOKEN"])
+    MODEL_NAME = "gpt-4o"
+elif API_HOST == "azure":
+    token_provider = azure.identity.get_bearer_token_provider(
+        azure.identity.DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+    )
+    client = openai.AsyncAzureOpenAI(
+        api_version=os.environ["AZURE_OPENAI_VERSION"],
+        azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+        azure_ad_token_provider=token_provider,
+    )
+    MODEL_NAME = os.environ["AZURE_OPENAI_DEPLOYMENT"]
 
 
 @function_tool
@@ -30,21 +48,21 @@ spanish_agent = Agent(
     name="Spanish agent",
     instructions="You only speak Spanish.",
     tools=[get_weather],
-    model=OpenAIChatCompletionsModel(model="gpt-4o", openai_client=client),
+    model=OpenAIChatCompletionsModel(model=MODEL_NAME, openai_client=client),
 )
 
 english_agent = Agent(
     name="English agent",
     instructions="You only speak English",
     tools=[get_weather],
-    model=OpenAIChatCompletionsModel(model="gpt-4o", openai_client=client),
+    model=OpenAIChatCompletionsModel(model=MODEL_NAME, openai_client=client),
 )
 
 triage_agent = Agent(
     name="Triage agent",
     instructions="Handoff to the appropriate agent based on the language of the request.",
     handoffs=[spanish_agent, english_agent],
-    model=OpenAIChatCompletionsModel(model="gpt-4o", openai_client=client),
+    model=OpenAIChatCompletionsModel(model=MODEL_NAME, openai_client=client),
 )
 
 

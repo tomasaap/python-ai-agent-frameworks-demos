@@ -1,16 +1,33 @@
 import asyncio
 import os
 
+import azure.identity
 from autogen_agentchat.agents import AssistantAgent
 from autogen_agentchat.conditions import TextMentionTermination
 from autogen_agentchat.teams import MagenticOneGroupChat
 from autogen_agentchat.ui import Console
-from autogen_ext.models.openai import OpenAIChatCompletionClient
+from autogen_ext.models.openai import AzureOpenAIChatCompletionClient, OpenAIChatCompletionClient
+from dotenv import load_dotenv
 
-client = OpenAIChatCompletionClient(
-    model="gpt-4o", api_key=os.environ["GITHUB_TOKEN"], base_url="https://models.inference.ai.azure.com"
-)
+# Setup the client to use either Azure OpenAI or GitHub Models
+load_dotenv(override=True)
+API_HOST = os.getenv("API_HOST", "github")
 
+
+if API_HOST == "github":
+    client = OpenAIChatCompletionClient(
+        model="gpt-4o", api_key=os.environ["GITHUB_TOKEN"], base_url="https://models.inference.ai.azure.com"
+    )
+elif API_HOST == "azure":
+    token_provider = azure.identity.get_bearer_token_provider(
+        azure.identity.DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+    )
+    client = AzureOpenAIChatCompletionClient(
+        api_version=os.environ["AZURE_OPENAI_VERSION"],
+        azure_deployment=os.environ["AZURE_OPENAI_DEPLOYMENT"],
+        azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+        azure_ad_token_provider=token_provider,
+    )
 
 planner_agent = AssistantAgent(
     "planner_agent",
